@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Неопознанный енот](https://up.htmlacademy.ru/javascript/24/user/1801005).
-* Наставник: [Павел Бубликов] (https://htmlacademy.ru/profile/pbuba).
+* Наставник: [Павел Бубликов](https://htmlacademy.ru/profile/pbuba).
 
 ---
 
