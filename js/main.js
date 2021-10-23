@@ -1,3 +1,6 @@
+
+const DEFAULT_GENERATE_NUM = 10;
+
 const getRandomPositiveInteger = function(min1, max1) {
   const lower = Math.ceil(Math.min(Math.abs(min1), Math.abs(max1)));
   const upper = Math.floor(Math.max(Math.abs(min1), Math.abs(max1)));
@@ -12,73 +15,81 @@ const getRandomPositiveFloat = function(min, max, digits = 1) {
   return result.toFixed(digits);
 };
 
-const numberAvatar = getRandomPositiveInteger(1,10);
-const numberAvatarFix = `0${ numberAvatar}`;
-
 const typeOfRooms = ['palace','flat','house','bungalow','hotel'];
-const roomNumber = typeOfRooms.length - 1;
-const roomsChoice = typeOfRooms[roomNumber];
+const roomsNumber = getRandomPositiveInteger(0,typeOfRooms.length);
 
 const checkinVariants = ['12:00','13:00','14:00'];
-const checkinNumber = checkinVariants.length - 1;
-const checkinChoice = checkinVariants[checkinNumber];
+const checkinNumber = getRandomPositiveInteger(0,checkinVariants.length);
+const checkinResult = checkinVariants[checkinNumber];
 
 const checkoutVariants = ['12:00','13:00','14:00'];
-const checkoutNumber = checkoutVariants.length - 1;
-const checkoutChoice = checkoutVariants[checkinNumber];
+const checkoutNumber = getRandomPositiveInteger(0,checkoutVariants.length);
+const checkoutResult = checkoutVariants[checkoutNumber];
 
 const typeOfFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const featureAmount = getRandomPositiveInteger(0,typeOfFeatures - 1);
-let featureChoice = 0;
+const featureChoice = [];
 
-for(let i = 0; i <= typeOfFeatures - 1; i++){
-  let coin = getRandomPositiveInteger(1,2);
-  if (coin == 1){
-    featureChoice[i] = typeOfFeatures[i];
-  };
-};
+let coin = 0;
+for(let index = 0; index <= typeOfFeatures - 1; index++){
+  coin = getRandomPositiveInteger(1,2);
+  if (coin === 1){
+    featureChoice[index] = typeOfFeatures[index];
+  }
+}
 
 let allFeautures = '';
-for(let j = 1; j <= typeOfFeatures; j++){
-  allFeautures = allFeautures + ',' +  featureChoice[j];
-};
+for(let index = 0; index <= typeOfFeatures.length-1; index++){
+  allFeautures = `${allFeautures  },${   featureChoice[index]}`;
+}
 
-
-const variationOfPhotos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 
+const variationOfPhotos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
-const photosNumber = variationOfPhotos.length - 1;
-const photosChoice = variationOfPhotos[photosNumber];
+const photosNumber = getRandomPositiveInteger(0,variationOfPhotos.length);
+const photosResult = variationOfPhotos[photosNumber];
 
-let author = {
-  avatar: numberAvatarFix,
+const generateOffer = function (index, address) {
+  const offer = {
+    title: 'Введите текст',
+    address,
+    price: getRandomPositiveInteger(1,1000000),
+    rooms: roomsNumber,
+    guests: getRandomPositiveInteger(1,100),
+    checkin: checkoutResult,
+    checkout: checkinResult,
+    features: featureChoice,
+    description: 'Описание',
+    photos: photosResult,
+  };
+
+  return offer;
 };
 
-let offer = {
-  title: 'Введите текст',
-  addres: {
-    location: {
-      lat: getRandomPositiveFloat(35.65000,35.70000,5),
-      lng: getRandomPositiveFloat(139.70000,139.80000,5),
+function generateAd(param) {
+  const value = param + 1;
+  const locationObj = {
+    lat: getRandomPositiveFloat(35.60000, 3570000, 5),
+    lng: getRandomPositiveFloat(139.70000, 1398000, 5),
+  };
+
+  const address = '{$location.lat},{$location.lng}';
+
+  return {
+    author: {
+      avatar: `img/avatars/user${value < 10 ? `0${value}` : value}.png`,
     },
-  },
-  price: getRandomPositiveInteger(1,1000000),
-  rooms: roomChoice,
-  guests: getRandomPositiveInteger(1,100),
-  checkin: checkinChoice,
-  checkout: checkoutChoice,
-  features: featureChoice,
-  description: 'Описание',
+    offer: generateOffer(param, address),
+    location: locationObj,
+  };
+}
+
+const generateAds = function (generateNum = DEFAULT_GENERATE_NUM) {
+  const ads = [];
+  for(let index = 0; index < generateNum; index++) {
+    ads[index] = generateAd(index);
+  }
+
+  return ads;
 };
 
 
-
-
-
-
-
-
-
-
-console.log(numberAvatarFix);
-console.log(getRandomPositiveFloat(1.11,1.33,2));
