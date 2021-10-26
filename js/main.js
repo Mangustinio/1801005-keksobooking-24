@@ -10,8 +10,8 @@ const GUESTS_MAX = 100;
 const PRICE_MIN = 1;
 const PRICE_MAX = 100000;
 const titlesList = ['Введите текст', 'Заполните пустые поля', 'Заполните пустую форму','Отсутствует информация'];
-
-
+const typeOfFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const featureChoice = [];
 
 const getRandomPositiveInteger = function(min1, max1) {
   const lower = Math.ceil(Math.min(Math.abs(min1), Math.abs(max1)));
@@ -27,28 +27,23 @@ const getRandomPositiveFloat = function(min, max, digits = 1) {
   return result.toFixed(digits);
 };
 
+function getFeatures() {
+  let coin = 0;
+  for(let index = 0; index <= typeOfFeatures.length - 1; index++){
+    coin = getRandomPositiveInteger(1,2);
+    if (coin === 1){
+      featureChoice.push(typeOfFeatures[index]);
+    }
+  }
+  return featureChoice;
+}
+
 const typeOfRooms = ['palace','flat','house','bungalow','hotel'];
 const roomsNumber = getRandomPositiveInteger(0,typeOfRooms.length);
 
 const checkinVariants = ['12:00','13:00','14:00'];
 
 const checkoutVariants = ['12:00','13:00','14:00'];
-
-const typeOfFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const featureChoice = [];
-
-let coin = 0;
-for(let index = 0; index <= typeOfFeatures.length - 1; index++){
-  coin = getRandomPositiveInteger(1,2);
-  if (coin === 1){
-    featureChoice.push(typeOfFeatures[index]);
-  }
-}
-
-let allFeautures = '';
-for(let index = 0; index <= typeOfFeatures.length - 1; index++){
-  allFeautures = `${allFeautures  },${   featureChoice[index]}`;
-}
 
 const variationOfPhotos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
@@ -65,7 +60,7 @@ const generateOffer = function (index, address) {
     guests: getRandomPositiveInteger(GUESTS_MIN,GUESTS_MAX),
     checkin: checkinVariants[getRandomPositiveInteger(0, checkoutVariants.length - 1)],
     checkout: checkoutVariants[getRandomPositiveInteger(0, checkoutVariants.length - 1)],
-    features: featureChoice,
+    features: getFeatures() ,
     description: 'Описание',
     photos: photosResult,
   };
@@ -80,7 +75,7 @@ function generateAd(param) {
     lng: getRandomPositiveFloat(LNG_MIN, LNG_MAX, LNG_ROUNDING),
   };
 
-  const address = '{$location.lat},{$location.lng}';
+  const address = `${locationObj.lat}, ${locationObj.lng}`;
 
   return {
     author: {
@@ -91,7 +86,6 @@ function generateAd(param) {
   };
 }
 
-// eslint-disable-next-line no-unused-vars
 const generateAds = function (generateNum = DEFAULT_GENERATE_NUM) {
   const ads = [];
   for(let index = 0; index < generateNum; index++) {
