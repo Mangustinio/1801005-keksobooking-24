@@ -11,7 +11,6 @@ const PRICE_MIN = 1;
 const PRICE_MAX = 100000;
 const titlesList = ['Введите текст', 'Заполните пустые поля', 'Заполните пустую форму','Отсутствует информация'];
 const typeOfFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const featureChoice = [];
 
 const getRandomPositiveInteger = function(min1, max1) {
   const lower = Math.ceil(Math.min(Math.abs(min1), Math.abs(max1)));
@@ -29,6 +28,7 @@ const getRandomPositiveFloat = function(min, max, digits = 1) {
 
 function getFeatures() {
   let coin = 0;
+  const featureChoice = [];
   for(let index = 0; index <= typeOfFeatures.length - 1; index++){
     coin = getRandomPositiveInteger(1,2);
     if (coin === 1){
@@ -95,3 +95,4 @@ const generateAds = function (generateNum = DEFAULT_GENERATE_NUM) {
   return ads;
 };
 
+console.log(generateAds(2));
