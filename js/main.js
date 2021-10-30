@@ -1,54 +1,71 @@
+const LAT_MIN = 35.65000;
+const LAT_MAX = 35.70000;
+const LAT_ROUNDING = 5;
+const LNG_MIN = 139.70000;
+const LNG_MAX = 139.80000;
+const LNG_ROUNDING = 5;
+const DEFAULT_GENERATE_NUM = 10;
+const GUESTS_MIN = 1;
+const GUESTS_MAX = 100;
+const PRICE_MIN = 1;
+const PRICE_MAX = 100000;
+const titlesList = ['Введите текст', 'Заполните пустые поля', 'Заполните пустую форму','Отсутствует информация'];
+const typeOfFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
-const getRandomIntInclusive = function(min1, max1) {
-  let f = 0;
-  // eslint-disable-next-line id-length
-  let h = 0;
-  let someInt = 0;
-  if (min1 > max1) {
-    f = min1;
-    h = max1;
-    max1 = f;
-    min1 = h;
+
+import {getRandomPositiveInteger} from './utils/get-random-positive-integer';
+import {generateAd} from './utils/mock-data.';
+
+function getFeatures() {
+  let coin = 0;
+  const featureChoice = [];
+  for(let index = 0; index <= typeOfFeatures.length - 1; index++){
+    coin = getRandomPositiveInteger(1,2);
+    if (coin === 1){
+      featureChoice.push(typeOfFeatures[index]);
+    }
   }
-  if (min1 <= 0, max1 <= 0) {
-    return 0;
-  } else if (min1 <= 0, max1 > 0) {
-    someInt = Math.floor(Math.random() * (max1 - min1 + 1)) + min1;
-    return someInt;
-  } else {
-    someInt = Math.floor(Math.random() * (max1 - min1 + 1)) + min1;
-    return someInt;
-  } //Максимум и минимум включаются
-};
-const getRandomInclusive = function(degree,min1,max1) {
-  let f = 0;
-  let h = 0;
-  let someInt = 0;
-  if (min1 > max1) {
-    f = min1;
-    h = max1;
-    max1 = f;
-    min1 = h;
-  }
-  if (min1 <= 0, max1 <= 0) {
-    return 0;
-  } else if (min1 <= 0, max1 > 0) {
-    someInt = (Math.random() * (max1 - min1)) + min1;
-    someInt = someInt.toFixed(degree);
-    return someInt;
-  } else {
-    someInt = (Math.random() * (max1 - min1)) + min1;
-    someInt = someInt.toFixed(degree);
-    return someInt;
-  }
-};
-console.log(getRandomIntInclusive(15, 6));
-let k = 0;
-let result = 0;
-while (k<100) {
-  result = getRandomInclusive(2,1.1, 1.2);
-  k++;
-  console.log(result);
+  return featureChoice;
 }
 
-console.log((Math.random()*(1.2 - 1.1) + 1.1).toFixed(2));
+const typeOfRooms = ['palace','flat','house','bungalow','hotel'];
+const roomsNumber = getRandomPositiveInteger(0,typeOfRooms.length);
+
+const checkinVariants = ['12:00','13:00','14:00'];
+
+const checkoutVariants = ['12:00','13:00','14:00'];
+
+const variationOfPhotos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
+const photosNumber = getRandomPositiveInteger(0,variationOfPhotos.length);
+const photosResult = variationOfPhotos[photosNumber];
+
+const generateOffer = function (index, address) {
+  const offer = {
+    title: titlesList[getRandomPositiveInteger(0, titlesList.length - 1)],
+    address,
+    price: getRandomPositiveInteger(PRICE_MIN,PRICE_MAX),
+    rooms: roomsNumber,
+    guests: getRandomPositiveInteger(GUESTS_MIN,GUESTS_MAX),
+    checkin: checkinVariants[getRandomPositiveInteger(0, checkoutVariants.length - 1)],
+    checkout: checkoutVariants[getRandomPositiveInteger(0, checkoutVariants.length - 1)],
+    features: getFeatures() ,
+    description: 'Описание',
+    photos: photosResult,
+  };
+
+  return offer;
+};
+
+const generateAds = function (generateNum = DEFAULT_GENERATE_NUM) {
+  const ads = [];
+  for(let index = 0; index < generateNum; index++) {
+    ads[index] = generateAd(index);
+  }
+
+  return ads;
+};
+export {generateOffer,LAT_MIN,LAT_MAX,LAT_ROUNDING,LNG_MIN,LNG_MAX,LNG_ROUNDING};
+
+console.log(generateAds(2));
