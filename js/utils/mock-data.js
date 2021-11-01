@@ -1,4 +1,4 @@
-import {getRandomPositiveInteger} from './get-random-positive-float.js';
+import {getRandomPositiveInteger} from './get-random-positive-integer';
 import {getRandomPositiveFloat} from './get-random-positive-float.js';
 
 const LAT_MIN = 35.65000;
