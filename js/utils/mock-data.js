@@ -56,7 +56,7 @@ const generateOffer = function (index, address) {
 
   return offer;
 };
-
+ 
 const generateAd = function(param) {
   const value = param + 1;
   const locationObj = {
@@ -83,5 +83,6 @@ const generateAds = function (generateNum = DEFAULT_GENERATE_NUM) {
 
   return ads;
 };
+
 
 export {generateAds};
