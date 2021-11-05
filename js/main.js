@@ -1,3 +1,3 @@
 import {generateAds} from './utils/mock-data.js';
-
-console.log(generateAds(2));
+import { popupFunction } from './card-data.js';
+popupFunction();
