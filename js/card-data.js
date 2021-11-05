@@ -31,7 +31,7 @@ const popupFunction = function() {
     cardNode.querySelector('.popup__text--capacity').textContent = `Заезд после ${ads.offer.checkin} ,выезд до ${ads.offer.checkout}`;
     cardNode.querySelector('.popup__features').textContent = ads.offer.features;
     cardNode.querySelector('.popup__description').textContent = ads.offer.description;
-    cardNode.querySelector('.popup__photos').src = ads.offer.photos;
+    cardNode.querySelector('.popup__photo').src = ads.offer.photos;
     cardNode.querySelector('.popup__avatar').src = ads.author.avatar;
     cardTemplateFragment.appendChild(cardNode);
   });
