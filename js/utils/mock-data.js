@@ -56,7 +56,7 @@ const generateOffer = function (index, address) {
 
   return offer;
 };
- 
+
 const generateAd = function(param) {
   const value = param + 1;
   const locationObj = {
@@ -68,12 +68,12 @@ const generateAd = function(param) {
 
   return {
     author: {
-      avatar: `img/avatars/user${value < 10 ? `0${value}` : value}.png`
+      avatar: `img/avatars/user${value < 10 ? `0${value}` : value}.png`,
     },
     offer: generateOffer(param, address),
     location: locationObj,
-  }
-}
+  };
+};
 
 const generateAds = function (generateNum = DEFAULT_GENERATE_NUM) {
   const ads = [];
