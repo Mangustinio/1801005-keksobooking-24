@@ -1,3 +1,4 @@
 import {generateAds} from './utils/mock-data.js';
 import { popupFunction } from './card-data.js';
-popupFunction();
+import {formActivation,formDisactivation} from './form-data.js';
+formActivation();
