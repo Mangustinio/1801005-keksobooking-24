@@ -26,3 +26,8 @@ const formActivation = function () {
 };
 
 export {formActivation, formDisactivation};
+
+function onFilterChange (evt) {
+  let comparison = '';
+  comparison = evt.target.value;
+}
