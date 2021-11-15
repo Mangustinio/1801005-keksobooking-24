@@ -7,6 +7,7 @@ const inputPriceType = document.querySelector('#price');
 const selectRoomNumber = document.querySelector('#room_number');
 const roomNumberOption = selectRoomNumber.querySelectorAll('option');
 const selectCapacity = document.querySelector('#capacity');
+const selectCapacityOption = selectCapacity.querySelectorAll('option');
 const TypeMinPriceMap = {
   bungalow: 0,
   flat: 1000,
@@ -15,26 +16,24 @@ const TypeMinPriceMap = {
   palace: 10000,
 };
 
-/*const roomNumberMap ={
-  1: 0,
-  2: 1,
-  3: 2,
-  100: 3,
-};
-*/
 const roomNumberOptionDisabledMap ={
-  1: roomNumberOption[1,2,3],
-  2: roomNumberOption[2,3],
-  3: roomNumberOption[3],
-  100: roomNumberOption[0,1,2],
+  1: [1],
+  2: [1,2],
+  3: [1,2,3],
+  100: [0],
 };
 
 const capacityRegulation = (event) => {
-  //const newCapacity = roomNumberMap[event.target.value];
   const newOldCapacity = roomNumberOptionDisabledMap[event.target.value];
-  newOldCapacity.forEach((element) =>{
-    element.setAttribute('disabled','disabled');
-  });
+
+  for (const iterator of selectCapacityOption) {
+    if (newOldCapacity.includes(Number(iterator.value))) {
+      iterator.removeAttribute('disabled');
+      selectCapacity.value = iterator.value;
+    } else {
+      iterator.setAttribute('disabled', true);
+    }
+  }
 };
 
 selectRoomNumber.addEventListener('change', capacityRegulation);
